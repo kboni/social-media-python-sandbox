@@ -1,0 +1,5 @@
+-r base.txt
+pytest-flask==0.15.0
+pytest-flask-sqlalchemy==1.0.2
+pytest-mock==2.0.0
+pycodestyle==2.5.0

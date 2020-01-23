@@ -1,0 +1,32 @@
+version: '3'
+services:
+  web-api:
+    build:
+      context: ./web_api/
+      args:
+        FLASK_PATH: /usr/local/bin/app
+    restart: always
+    depends_on:
+      - database
+  
+  auth-api:
+    build:
+      context: ./auth_api/
+      args:
+        FLASK_PATH: /usr/local/bin/app
+    depends_on:
+      - database
+      - mail
+      - redis
+    restart: always
+    
+  database:
+    image: postgres:12.1-alpine
+
+  mail:
+    image: djfarrelly/maildev
+
+  redis:
+    image: redis:5.0.7-alpine
+
+  static-file-server:

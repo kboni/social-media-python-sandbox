@@ -1,0 +1,22 @@
+{
+	"id": "bc067f93-be1d-4af3-aafd-cc8f9ff8f4c3",
+	"name": "local",
+	"values": [
+		{
+			"key": "web-host",
+			"value": "http://web-api:5000",
+			"description": "",
+			"enabled": true
+		},
+		{
+			"key": "auth-host",
+			"value": "http://auth-api:5000",
+			"type": "text",
+			"description": "",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-01-11T01:34:42.298Z",
+	"_postman_exported_using": "Postman/7.0.6"
+}

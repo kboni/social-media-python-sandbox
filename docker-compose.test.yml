@@ -1,0 +1,68 @@
+version: '3'
+services:
+  web-api:
+    build:
+      args:
+        ENV: test
+    environment:
+      - "ENV=development"
+      - "PYTHONBREAKPOINT=web_pdb.set_trace"
+      - "APP_SETTINGS=config.TestConfig"
+      - "SECRET_KEY=somedevsecretkey"
+      - "POSTGRES_DOMAIN=database:5432"
+      - "POSTGRES_DB=test_db"
+      - "POSTGRES_USER=test_un"
+      - "POSTGRES_PW=test_pw"
+    volumes:
+        - ./web_api:/usr/local/bin/app
+    ports:
+      - 5000:5000
+      - 5555:5555 # web-pdb debugger
+  
+  auth-api:
+    build:
+      args:
+        ENV: test
+    environment:
+      - "ENV=development"
+      - "PYTHONBREAKPOINT=web_pdb.set_trace"
+      - "APP_SETTINGS=config.TestConfig"
+      - "SECRET_KEY=somedevsecretkey"
+      - "TOKEN_SECRET_KEY=somedevsecretkey"
+      - "POSTGRES_DOMAIN=database:5432"
+      - "POSTGRES_DB=test_db"
+      - "POSTGRES_USER=test_un"
+      - "POSTGRES_PW=test_pw"
+      - "REGISTRATION_SECRET_KEY=someredissecretkey"
+      - "REDIS_HOST=redis"
+      - "REDIS_PORT=6379"
+      - "SMTP_HOST=mail"
+      - "SMTP_PORT=25"
+    volumes:
+      - ./auth_api:/usr/local/bin/app
+    ports:
+      - 5001:5000
+      - 5556:5555 # web-pdb debugger
+      
+  database:
+    environment:
+      - "POSTGRES_DB=test_db"
+      - "POSTGRES_USER=test_un"
+      - "POSTGRES_PASSWORD=test_pw"
+    ports: 
+      - 5432:5432
+
+  mail:
+    ports:
+      - 1080:80
+      - 1025:25
+
+  redis:
+    ports:
+      - 6379:6379
+
+  static-file-server:
+    image: mayth/simple-upload-server
+    ports: 
+      - 25478:25478
+    command: ["app", "-token", "f9403fc5f537b4ab332d", "/var/root/media"]
