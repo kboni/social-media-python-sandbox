@@ -36,9 +36,9 @@ test my Python skills.
 1. Install docker and docker-compose  
 1. cd to project's main folder
 1. Run
-```bash
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml -p dev-project up --build --force-recreate
-```
+    ```bash
+    docker-compose -f docker-compose.yml -f docker-compose.dev.yml -p dev-project up --build --force-recreate
+    ```
 1. *docker exec* into dev-project_web_api container
     ```bash
     docker exec -it <container_id> /bin/bash
