@@ -78,5 +78,5 @@ class TestPost():
         user.hash_password('test_password')
 
         self.data = models.Post()
-        self.data.user_id = user.user_id
+        self.data.user_id = user.id
         self.data.user = user

@@ -32,7 +32,7 @@ class Auth():
             return None
 
         return models.User.query.filter_by(
-            user_id=auth_payload['user_id']).first()
+            id=auth_payload['user_id']).first()
 
 class DateTimeUtil():
     @staticmethod

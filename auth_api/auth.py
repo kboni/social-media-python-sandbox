@@ -286,7 +286,7 @@ class Auth():
     def _generate_token(payload: dict, expiration: int, secret_key: str):
         token_serializer = itsdangerous.TimedJSONWebSignatureSerializer(
             secret_key, expires_in=expiration)
-        # breakpoint()
+
         return token_serializer.dumps(payload)
 
     @staticmethod
@@ -339,7 +339,7 @@ class Auth():
 
         refresh_token_payload = {
             'type': 'refresh_token',
-            'user_id': user.user_id
+            'user_id': user.id
             }
 
         return Auth._generate_token(

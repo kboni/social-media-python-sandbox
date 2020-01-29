@@ -8,7 +8,7 @@ class TestAuth():
     def test_verify_authorization_OK(self, mocker):
         # GIVEN
         expected = models.User()
-        expected.user_id = 1
+        expected.id = 1
 
         request_mock = mocker.patch.object(flask, "request")
         request_mock.headers.get.return_value = 'token'

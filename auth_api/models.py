@@ -5,11 +5,11 @@ from flask_init import app, db, basic_auth
 
 class User(db.Model):
     __tablename__ = 'USER'
-    user_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(32), index=True)
     email = db.Column(db.String(64), index=True)
     password_hash = db.Column(db.String(250))
-    creation_date = db.Column(db.DateTime(timezone=True), default=func.now())
+    created = db.Column(db.DateTime(timezone=True), default=func.now())
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}

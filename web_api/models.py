@@ -145,7 +145,7 @@ class Post(Base):
     def output_with_permissions(self, auth_user: User):
         output = self.output()
         output['edit_allowed'] = True \
-            if self.user_id == auth_user.user_id else False
+            if self.user_id == auth_user.id else False
         return output
 
     def output_with_permissions_and_users(self, auth_user: int):
@@ -171,7 +171,7 @@ class Post(Base):
 
         # TODO: validate response
 
-        self.user_id = user.user_id
+        self.user_id = user.id
         self.resource = filename
         self.description = form_data.get('description')
 
@@ -238,12 +238,12 @@ class Comment(Base):
             subcomment.output_with_permissions(auth_user)
             for subcomment in self.subcomments]
         output['edit_allowed'] = True \
-            if self.user_id == auth_user.user_id else False
+            if self.user_id == auth_user.id else False
         return output
 
     def save(self, form_data: dict, post: Post, user: User):
         self.post_id = post.id
-        self.user_id = user.user_id
+        self.user_id = user.id
         self.text = form_data.get('text')
         self.user = user
 
@@ -277,12 +277,12 @@ class SubComment(Base):
     def output_with_permissions(self, auth_user: User):
         output = self.output()
         output['edit_allowed'] = True \
-            if self.user_id == auth_user.user_id else False
+            if self.user_id == auth_user.id else False
         return output
    
     def save(self, form_data: dict, comment: Comment, user: User):
         self.comment_id = comment.id
-        self.user_id = user.user_id
+        self.user_id = user.id
         self.text = form_data.get('text')
         self.user = user
 

@@ -104,7 +104,7 @@ class Post(Resource):
             user = models.User.query.filter_by(username=username).first()
             if user is None:
                 abort(400)
-            data_list = models.Post.query.filter_by(user_id=user.user_id).all()
+            data_list = models.Post.query.filter_by(user_id=user.id).all()
             return self._return_data_list(data_list)
 
         response_message = {
@@ -173,7 +173,7 @@ class Post(Resource):
 
         return make_response(jsonify(response_message), 201)
 
-    def patch(self, data_id: int):
+    def patch(self, post_id: int):
         # TODO: Test wether is this check necessary or not
         if str(request.url_rule) != self.URL_RULE_SINGLE_POST_BY_ID:
             abort(404)
@@ -186,10 +186,10 @@ class Post(Resource):
         file = request.files.get('file')
         form_data = request.form
 
-        if (not form_data and not file) or not data_id:
+        if (not form_data and not file) or not post_id:
             abort(400)
 
-        post = models.Post.query.filter_by(data_id=data_id).first()
+        post = models.Post.query.filter_by(id=post_id).first()
 
         if post is None:
             abort(400)
@@ -206,7 +206,7 @@ class Post(Resource):
 
         return make_response(jsonify(response_message), 200)
 
-    def delete(self, data_id: int):
+    def delete(self, post_id: int):
         if str(request.url_rule) != self.URL_RULE_SINGLE_POST_BY_ID:
             abort(404)
 
@@ -215,10 +215,10 @@ class Post(Resource):
         if user is None:
             abort(400)
 
-        if not data_id:
+        if not post_id:
             abort(400)
-
-        post = models.Post.query.filter_by(data_id=data_id).first()
+        
+        post = models.Post.query.filter_by(id=post_id).first()
 
         if post is None:
             abort(400)
@@ -249,7 +249,7 @@ class Comment(Resource):
         if not form_data:
             abort(400)
 
-        post = models.Post.query.filter_by(data_id=post_id).first()
+        post = models.Post.query.filter_by(id=post_id).first()
         if post is None:
             abort(400)
 
